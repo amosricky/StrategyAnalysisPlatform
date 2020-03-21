@@ -1,0 +1,68 @@
+<!-- index.html (ch08www project) -->
+{% extends "base.html" %}
+{% block title %}移動窗格回測平台{% endblock %}
+{% block content %}
+{% load render_table from django_tables2 %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+     var my_ReportDir = {{ ReportDir|safe }}
+     function renew_reportdir(index){
+         var numstrategy = index-1
+         for(var i=0;i<my_ReportDir[numstrategy][1].length;i++)
+				//新增select的選項
+				reportdir.options[i]=new Option(my_ReportDir[numstrategy][1][i] , my_ReportDir[numstrategy][1][i]);
+		}
+
+     var my_ReportList = {{ ReportList|safe }}
+     function renew_reportlist() {
+         for(var i=0;i<my_ReportList.length;i++)
+				//新增select的選項
+				reportlist.options[i]=new Option(my_ReportList[i] , my_ReportList[i]);
+		}
+</script>
+
+<div class='container'>
+    <div class='panel panel-primary'>
+        <div class='panel-heading'>
+            <h3>績效報表查詢</h3>
+        </div>
+        <div class='panel-body'>
+
+             {% csrf_token %}
+            <form name='my form' action='.' method='POST'>
+            {% csrf_token %}
+
+            交易策略：
+            <select required onChange="renew_reportdir(this.selectedIndex);" name="Strategy">
+{#                <option disabled=disabled selected=selected>請選擇策略#}
+                <option value="">請選擇策略</option>
+                <option value ="BollingStrategy">BollingStrategy</option>
+            </select>
+
+            參數資料夾：
+            <select required id="reportdir" onchange="renew_reportlist();" name="ReportDir">
+                <option value="">請先選取交易策略</option>
+            </select>
+
+            結果報表：
+            <select required id="reportlist" name="ReportList">
+                <option value="">請先選取參數資料夾</option>
+            </select>
+
+        </div>
+        <div class='panel-footer'>
+            <input type='submit' value='查詢'>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="container">
+  <table class="table table-condensed">
+{#      顯示報表#}
+  </table>
+</div>
+{% endblock %}
+
