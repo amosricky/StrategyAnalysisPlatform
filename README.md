@@ -16,4 +16,5 @@
 
 ## 其他
 論文簡介 : [The Design and Implementation of an Automated Platform to Verify Trading Programs](https://www.slideshare.net/HsuChiaEn/the-design-and-implementation-of-an-automated-platform-to-verify-trading-programs)
+
 論文連結 : [利用移動窗格法驗證程式交易策略樣本內外穩健性的自動化平台設計研究](https://hdl.handle.net/11296/2u875g)
